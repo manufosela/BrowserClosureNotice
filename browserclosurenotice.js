@@ -16,6 +16,7 @@ BrowserClosureNotice = function(){
         this.oldx = 0;
         this.oldy = 0;
         this.w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        this.distanceWidth = ( this.isApple() ) ? this.distanceNearClose : ( this.w - this.distanceNearClose );
         this.goup = 0;
         this.godown = 0;
         this.goright = 0;
@@ -37,14 +38,17 @@ BrowserClosureNotice = function(){
         if ( document.detachEvent ) { document.detachEvent ('onmousemove', _this.mousemovemethod ); }
     };
     BrowserClosureNotice.prototype.mousemovemethod = function ( e ){
-        var p = this.getMousePos( e );
+        var p = this.getMousePos( e ), side, 
+            isApple = this.isApple(),
+            pxCond = ( isApple )?( p.x < this.distanceWidth ):( p.x > this.distanceWidth );
         if ( p.x < this.oldx )       { this.goright=0;  this.goleft++; } 
         else if ( p.x > this.oldx )  { this.goright++;  this.goleft=0; }
         if ( p.y < this.oldy )       { this.goup++;     this.godown=0; } 
         else if ( p.y > this.oldy )  { this.goup=0;     this.godown++; }
+        side = ( isApple ) ? this.goleft : this.goright;
         if ( 
-            ( p.y < ( this.distanceNearClose ) && this.goup >= this.stepsTakenToClose ) &&
-            ( p.x > ( this.w - this.distanceNearClose ) && this.goright >= this.stepsTakenToClose ) &&
+            ( p.y < this.distanceNearClose && this.goup >= this.stepsTakenToClose ) &&
+            ( pxCond && side >= this.stepsTakenToClose ) &&
             this.moreTimes
         ) {
             // console.log( "ALERT: CLOSE BROWSER. Times " + this.times );
@@ -55,11 +59,15 @@ BrowserClosureNotice = function(){
         }
         this.oldx = p.x;
         this.oldy = p.y;
-        //console.log( this.oldx + ", " + this.oldy + " - " + this.goup + ", " + this.goright + " --- " + this.moreTimes );        
+        //console.log( this.oldx + ", " + this.oldy + " - " + this.goup + ">="+this.stepsTakenToClose+", " + side + " >= "+this.stepsTakenToClose+" --- " + this.moreTimes );        
     };
     BrowserClosureNotice.prototype.isIE = function() {
       var myNav = navigator.userAgent.toLowerCase();
-      return ( myNav.indexOf( 'msie' ) != -1) ? parseInt( myNav.split( 'msie' )[1]) : false;
+      return ( !!~myNav.indexOf( 'msie' ) ) ? parseInt( myNav.split( 'msie' )[1]) : false;
+    };
+    BrowserClosureNotice.prototype.isApple = function() {
+      var myNav = navigator.userAgent.toLowerCase();
+      return ( !!~myNav.indexOf( 'mac os x' ) );
     };
     BrowserClosureNotice.prototype.getMousePos = function( e ) {
         var tempX, tempY;
