@@ -75,8 +75,8 @@ BrowserClosureNotice = function(){
             tempX = event.clientX + document.body.scrollLeft;
             tempY = event.clientY + document.body.scrollTop;
         } else {
-            tempX = e.pageX;
-            tempY = e.pageY;
+            tempX = e.clientX;
+            tempY = e.clientY;
         } 
         if ( tempX < 0 ){ tempX = 0; }
         if ( tempY < 0 ){ tempY = 0; }   
