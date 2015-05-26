@@ -4,7 +4,7 @@
 Su funcionamiento consiste en detectar la trayectoria del ratón cuando se acerca al borde superior derecho.
 En sistemas operativos "Mac OS X" al borde superior izquierdo.
 
-Demo: [http://manufosela.es/lib/BrowserClosureNotice/demo.html]
+Demo: [http://manufosela.es/lib/browserclosurenotice/demo.html]
 
 #Métodos
 La clase tiene 2 métodos:
@@ -32,7 +32,7 @@ pcb.detect();
 It works by detecting the path of the mouse when approaching the upper right edge.
 Operating Systems "Mac OS X" on the left top edge.
 
-Demo: [http://manufosela.es/lib/BrowserClosureNotice/demo.html]
+Demo: [http://manufosela.es/lib/browserclosurenotice/demo.html]
 
 #Méthods
 The class has 2 methods:
