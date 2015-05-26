@@ -42,8 +42,8 @@ The class has 2 methods:
 #Configuration parameters
 * **callback**: function to execute when the path is detected towards the end of the browser. By default is a javascript alert.
 * **maxTimes**: number of times it calls the callback when it detects the path to the browser is closed. By default 1.
-* **distanceNearClose**: distance in pixels from the upper right (or left) edge from which starts counting if directed towards the browser close button. By default 100.
-* **stepsTakenToClose**: number of pixels of the path to be followed towards the browser close button. By default 20.
+* **distanceNearClose**: distance in pixels from the upper right (or left) edge from which starts counting if directed towards the close browser button. By default 100.
+* **stepsTakenToClose**: number of pixels of the path to be followed towards the close browser button. By default 20.
 
 #Example
 
