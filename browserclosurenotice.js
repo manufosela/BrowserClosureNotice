@@ -49,7 +49,7 @@ BrowserClosureNotice = function(){
         ) {
             // console.log( "ALERT: CLOSE BROWSER. Times " + this.times );
             this.times++;
-            this.moreTimes=( this.times < this.maxTimes );
+            this.moreTimes=( this.times < this.maxTimes || this.maxTimes === 0 );
             this.unDetect();
             this.callbackBrowserClosureNotice();
         }
