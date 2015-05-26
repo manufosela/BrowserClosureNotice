@@ -9,7 +9,7 @@ BrowserClosureNotice = function(){
         /* OPTIONAL ARGUMENTS */
         this.stepsTakenToClose        = objArgs.stepsTakenToClose || 10;
         this.distanceNearClose        = objArgs.distanceNearClose || 100;
-        this.maxTimes                 = objArgs.maxTimes || 1;
+        this.maxTimes                 = ( typeof objArgs.maxTimes !== "undefined" && !!~objArgs.maxTimes )?objArgs.maxTimes:1;
         this.callbackBrowserClosureNotice = objArgs.callback || function() { alert( "really you want to go?" ); };
 
         /* PARAMETERS, NOT CHANGE */
