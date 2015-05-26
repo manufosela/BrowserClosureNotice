@@ -55,7 +55,7 @@ BrowserClosureNotice = function(){
             this.times++;
             this.moreTimes=( this.times < this.maxTimes || this.maxTimes === 0 );
             this.unDetect();
-            this.callbackBrowserClosureNotice();
+            this.callbackBrowserClosureNotice( e );
         }
         this.oldx = p.x;
         this.oldy = p.y;
