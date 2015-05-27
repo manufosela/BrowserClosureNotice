@@ -1,10 +1,10 @@
-# BrowserClosureNotice
+# BrowsersClosureNotice
 
-"Browser Closure Notice" es una biblioteca javascript que ejecuta una función cuando detecta que el ratón se dirige hacia el cierre del navegador.
+"Browser's Closure Notice" es una biblioteca javascript que ejecuta una función cuando detecta que el ratón se dirige hacia el cierre del navegador.
 Su funcionamiento consiste en detectar la trayectoria del ratón cuando se acerca al borde superior derecho.
 En sistemas operativos "Mac OS X" al borde superior izquierdo.
 
-Demo: [http://manufosela.es/lib/browserclosurenotice/demo.html]
+Demo: [http://manufosela.es/lib/browsersclosurenotice/demo.html]
 
 #Métodos
 La clase tiene 2 métodos:
