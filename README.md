@@ -1,4 +1,9 @@
-# BrowsersClosureNotice
+[BrowserClosureNotice (ES)](Browser Closure Notice (ES))
+
+[BrowserClosureNotice (EN)](Browser Closure Notice (EN))
+
+
+# BrowsersClosureNotice (ES)
 
 "Browser's Closure Notice" es una biblioteca javascript que ejecuta una función cuando detecta que el ratón se dirige hacia el cierre del navegador.
 Su funcionamiento consiste en detectar la trayectoria del ratón cuando se acerca al borde superior derecho.
@@ -25,7 +30,7 @@ var pcb = new BrowserClosureNotice( args );
 pcb.detect();
 ```
 
-# BrowserClosureNotice
+# BrowserClosureNotice (EN)
 
 "Browser Closure Notice" is a javascript library that execute a callback function when detect that the mouse go to the close browser button.
 
