@@ -37,7 +37,7 @@ pcb.detect();
 It works by detecting the path of the mouse when approaching the upper right edge.
 Operating Systems "Mac OS X" on the left top edge.
 
-Demo: [http://manufosela.es/lib/browserclosurenotice/demo.html]
+Demo: [http://manufosela.es/lib/browsersclosurenotice/demo.html]
 
 #Méthods
 The class has 2 methods:
