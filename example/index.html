@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrowserClosureNotice - Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 2.5em;
+        }
+        .info {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid #fff;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .controls {
+            margin: 30px 0;
+        }
+        button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-family: monospace;
+        }
+        .config {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .config-item {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .config-item label {
+            flex: 1;
+            font-weight: 500;
+        }
+        .config-item input {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            width: 100px;
+            font-size: 14px;
+        }
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖱️ BrowserClosureNotice</h1>
+        <p>JavaScript library that detects when the mouse is moving toward the browser's close button</p>
+
+        <div class="info">
+            <strong>Try it now!</strong> Move your mouse toward the browser's close button (top-right corner, or top-left on Mac). You'll see an alert when the detection is triggered.
+        </div>
+
+        <div class="config">
+            <h3>Configuration</h3>
+            <div class="config-item">
+                <label>Max Times (0 = unlimited):</label>
+                <input type="number" id="maxTimes" value="0" min="0">
+            </div>
+            <div class="config-item">
+                <label>Steps Taken to Close:</label>
+                <input type="number" id="stepsTakenToClose" value="20" min="1">
+            </div>
+            <div class="config-item">
+                <label>Distance Near Close (px):</label>
+                <input type="number" id="distanceNearClose" value="250" min="10">
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="startBtn">Start Detection</button>
+            <button id="stopBtn" disabled>Stop Detection</button>
+            <button id="resetBtn">Reset Counter</button>
+        </div>
+
+        <div class="status">
+            <div>Status: <span id="status">Not detecting</span></div>
+            <div>Times triggered: <span id="counter">0</span></div>
+            <div>Platform: <span id="platform"></span></div>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            <p><strong>How it works:</strong></p>
+            <ul>
+                <li><code>stepsTakenToClose</code>: Number of pixels of trajectory toward the close button</li>
+                <li><code>distanceNearClose</code>: Distance from edge to start detection</li>
+                <li><code>maxTimes</code>: How many times to trigger callback (0 = unlimited)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+</html>

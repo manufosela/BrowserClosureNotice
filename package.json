@@ -1,0 +1,44 @@
+{
+  "name": "browser-closure-notice",
+  "version": "2.0.0",
+  "description": "JavaScript library that detects when the mouse is moving toward the browser's close button and executes a callback function",
+  "type": "module",
+  "main": "browserclosurenotice.js",
+  "module": "browserclosurenotice.js",
+  "exports": {
+    ".": {
+      "import": "./browserclosurenotice.js",
+      "default": "./browserclosurenotice.js"
+    }
+  },
+  "files": [
+    "browserclosurenotice.js",
+    "browserclosurenotice.min.js",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "browser",
+    "close",
+    "detection",
+    "mouse",
+    "trajectory",
+    "exit",
+    "prevention",
+    "es6",
+    "esm"
+  ],
+  "author": "manufosela",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manufosela/BrowserClosureNotice.git"
+  },
+  "bugs": {
+    "url": "https://github.com/manufosela/BrowserClosureNotice/issues"
+  },
+  "homepage": "https://github.com/manufosela/BrowserClosureNotice#readme"
+}

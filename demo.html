@@ -3,16 +3,18 @@
   <head>
     <title>Demo BrowserClosureNotice</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="../onready.js"></script>
-    <script src="browserclosurenotice.min.js"></script>
-    <script>
-      var pcb;
-      ready( function(){
-        var args = { callback:function(){ alert("quiere cerrar"); }, maxTimes:0, stepsTakenToClose:20, distanceNearClose:250 };
-        pcb = new BrowserClosureNotice( args );
-        pcb.detect();
-      });
-      
+    <script type="module">
+      import BrowserClosureNotice from './browserclosurenotice.js';
+
+      const args = {
+        callback: () => { alert("quiere cerrar"); },
+        maxTimes: 0,
+        stepsTakenToClose: 20,
+        distanceNearClose: 250
+      };
+
+      const pcb = new BrowserClosureNotice(args);
+      pcb.detect();
     </script>
   </head>
 
