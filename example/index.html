@@ -88,9 +88,77 @@
             border-radius: 3px;
             font-family: 'Courier New', monospace;
         }
+        #customDialog {
+            border: none;
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            max-width: 450px;
+            animation: slideIn 0.3s ease-out;
+        }
+        #customDialog::backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            cursor: not-allowed;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .dialog-content {
+            padding: 32px;
+            text-align: center;
+        }
+        .dialog-content h3 {
+            margin: 0 0 12px 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .dialog-content p {
+            margin: 0 0 24px 0;
+            color: #666;
+            line-height: 1.6;
+        }
+        .dialog-content .count {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 16px 0;
+        }
+        .dialog-content button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .dialog-content button:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
+    <dialog id="customDialog">
+        <div class="dialog-content">
+            <h3>👋 Leaving so soon?</h3>
+            <p>You've tried to close the browser!</p>
+            <div class="count" id="dialogCount">1</div>
+            <p style="font-size: 14px; margin-bottom: 24px;">times detected</p>
+            <button onclick="this.closest('dialog').close()">Got it!</button>
+        </div>
+    </dialog>
     <div class="container">
         <h1>🖱️ BrowserClosureNotice</h1>
         <p>JavaScript library that detects when the mouse is moving toward the browser's close button</p>
@@ -101,6 +169,18 @@
 
         <div class="config">
             <h3>Configuration</h3>
+            <div class="config-item">
+                <label>Mode:</label>
+                <select id="modeSelect" style="padding: 8px; border-radius: 5px; border: none; width: 220px;">
+                    <option value="custom">Custom Dialog (with counter)</option>
+                    <option value="message">Default Dialog (with message)</option>
+                    <option value="discount">Discount Callback (10% off)</option>
+                </select>
+            </div>
+            <div class="config-item">
+                <label>Custom Message:</label>
+                <input type="text" id="customMessage" value="Wait! Don't leave yet!" style="width: 220px;">
+            </div>
             <div class="config-item">
                 <label>Max Times (0 = unlimited):</label>
                 <input type="number" id="maxTimes" value="0" min="0">

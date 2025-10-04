@@ -9,7 +9,8 @@ class BrowserClosureNotice {
         this.stepsTakenToClose = objArgs.stepsTakenToClose || 10;
         this.distanceNearClose = objArgs.distanceNearClose || 100;
         this.maxTimes = (typeof objArgs.maxTimes !== "undefined" && !!~objArgs.maxTimes) ? objArgs.maxTimes : 1;
-        this.callbackBrowserClosureNotice = objArgs.callback || (() => { alert("really you want to go?"); });
+        this.dialogMessage = objArgs.dialogMessage || null;
+        this.callbackBrowserClosureNotice = objArgs.callback || this._defaultCallback.bind(this);
 
         /* PARAMETERS, NOT CHANGE */
         this.oldx = 0;
@@ -88,6 +89,76 @@ class BrowserClosureNotice {
         if (tempY < 0) tempY = 0;
 
         return { x: tempX, y: tempY };
+    }
+
+    _defaultCallback() {
+        // Create dialog if it doesn't exist
+        let dialog = document.getElementById('bcn-dialog');
+        if (!dialog) {
+            dialog = document.createElement('dialog');
+            dialog.id = 'bcn-dialog';
+
+            // Prevent closing when clicking outside
+            dialog.addEventListener('click', (e) => {
+                if (e.target === dialog) {
+                    e.preventDefault();
+                }
+            });
+
+            document.body.appendChild(dialog);
+        }
+
+        // Set or update dialog content
+        const message = this.dialogMessage || "Are you sure you want to close this page?";
+        dialog.innerHTML = `
+            <style>
+                #bcn-dialog {
+                    border: none;
+                    border-radius: 12px;
+                    padding: 0;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                    max-width: 400px;
+                }
+                #bcn-dialog::backdrop {
+                    background: rgba(0, 0, 0, 0.5);
+                    backdrop-filter: blur(4px);
+                    cursor: not-allowed;
+                }
+                #bcn-dialog-content {
+                    padding: 24px;
+                }
+                #bcn-dialog h3 {
+                    margin: 0 0 12px 0;
+                    font-size: 20px;
+                    color: #333;
+                }
+                #bcn-dialog p {
+                    margin: 0 0 20px 0;
+                    color: #666;
+                    line-height: 1.5;
+                }
+                #bcn-dialog button {
+                    background: #667eea;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 6px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    font-weight: 600;
+                }
+                #bcn-dialog button:hover {
+                    background: #5568d3;
+                }
+            </style>
+            <div id="bcn-dialog-content">
+                <h3>👋 Leaving so soon?</h3>
+                <p>${message}</p>
+                <button onclick="this.closest('dialog').close()">Got it</button>
+            </div>
+        `;
+
+        dialog.showModal();
     }
 }
 

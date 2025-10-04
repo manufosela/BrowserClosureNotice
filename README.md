@@ -26,15 +26,37 @@ npm install browser-closure-notice
 ```javascript
 import BrowserClosureNotice from 'browser-closure-notice';
 
-const bcn = new BrowserClosureNotice({
-  callback: () => { alert("¿Realmente quieres cerrar?"); },
-  maxTimes: 0,
+// Ejemplo 1: Dialog por defecto con mensaje personalizado
+const bcn1 = new BrowserClosureNotice({
+  dialogMessage: "¿Seguro que quieres cerrar? ¡Tenemos una oferta especial para ti!",
+  maxTimes: 1
+});
+bcn1.detect();
+
+// Ejemplo 2: Callback personalizado (ej: aplicar descuento)
+const bcn2 = new BrowserClosureNotice({
+  callback: () => {
+    // Aplicar descuento del 10%
+    applyDiscount(10);
+    showDiscountModal("¡No te vayas! Te aplicamos un 10% de descuento");
+  },
+  maxTimes: 1,
   stepsTakenToClose: 20,
   distanceNearClose: 250
 });
+bcn2.detect();
 
-bcn.detect();
+// Ejemplo 3: Solo logging
+const bcn3 = new BrowserClosureNotice({
+  callback: () => console.log("Usuario intentó cerrar"),
+  maxTimes: 0
+});
+bcn3.detect();
 ```
+
+**Dialog por defecto:**
+
+Si no proporcionas un `callback`, se mostrará automáticamente un `<dialog>` modal moderno. Puedes personalizar el mensaje con `dialogMessage`.
 
 **En el navegador (ES6 modules):**
 
@@ -62,7 +84,8 @@ La clase tiene 2 métodos:
 
 | Parámetro | Tipo | Por defecto | Descripción |
 |-----------|------|-------------|-------------|
-| `callback` | Function | `() => alert("really you want to go?")` | Función que se ejecutará cuando se detecte la trayectoria hacia el cierre |
+| `callback` | Function | Dialog modal | Función que se ejecutará cuando se detecte la trayectoria hacia el cierre |
+| `dialogMessage` | String | `"Are you sure you want to close this page?"` | Mensaje personalizado para el dialog por defecto (solo si no hay callback) |
 | `maxTimes` | Number | `1` | Número de veces que se llamará al callback (0 = ilimitado) |
 | `distanceNearClose` | Number | `100` | Distancia en píxeles desde el borde superior donde empieza a detectar |
 | `stepsTakenToClose` | Number | `10` | Número de píxeles de trayectoria necesarios hacia el botón de cierre |
@@ -110,15 +133,37 @@ npm install browser-closure-notice
 ```javascript
 import BrowserClosureNotice from 'browser-closure-notice';
 
-const bcn = new BrowserClosureNotice({
-  callback: () => { alert("Really want to close?"); },
-  maxTimes: 0,
+// Example 1: Default dialog with custom message
+const bcn1 = new BrowserClosureNotice({
+  dialogMessage: "Wait! We have a special offer for you!",
+  maxTimes: 1
+});
+bcn1.detect();
+
+// Example 2: Custom callback (e.g., apply discount)
+const bcn2 = new BrowserClosureNotice({
+  callback: () => {
+    // Apply 10% discount
+    applyDiscount(10);
+    showDiscountModal("Don't leave! We're applying a 10% discount for you");
+  },
+  maxTimes: 1,
   stepsTakenToClose: 20,
   distanceNearClose: 250
 });
+bcn2.detect();
 
-bcn.detect();
+// Example 3: Just logging
+const bcn3 = new BrowserClosureNotice({
+  callback: () => console.log("User tried to close"),
+  maxTimes: 0
+});
+bcn3.detect();
 ```
+
+**Default dialog:**
+
+If you don't provide a `callback`, a modern styled `<dialog>` modal will be automatically displayed. You can customize the message with `dialogMessage`.
 
 **Browser (ES6 modules):**
 
@@ -146,7 +191,8 @@ The class has 2 methods:
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `callback` | Function | `() => alert("really you want to go?")` | Function to execute when trajectory toward close button is detected |
+| `callback` | Function | Modal dialog | Function to execute when trajectory toward close button is detected |
+| `dialogMessage` | String | `"Are you sure you want to close this page?"` | Custom message for default dialog (only if no callback provided) |
 | `maxTimes` | Number | `1` | Number of times to trigger callback (0 = unlimited) |
 | `distanceNearClose` | Number | `100` | Distance in pixels from top edge where detection starts |
 | `stepsTakenToClose` | Number | `10` | Number of pixels of trajectory needed toward close button |

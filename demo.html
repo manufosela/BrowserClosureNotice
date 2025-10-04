@@ -3,25 +3,46 @@
   <head>
     <title>Demo BrowserClosureNotice</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      .info {
+        background: #f0f0f0;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+    </style>
     <script type="module">
       import BrowserClosureNotice from './browserclosurenotice.js';
 
-      const args = {
-        callback: () => { alert("quiere cerrar"); },
+      // Using default dialog with custom message
+      const pcb = new BrowserClosureNotice({
+        dialogMessage: "¿Seguro que quieres irte? ¡Tenemos contenido interesante para ti!",
         maxTimes: 0,
         stepsTakenToClose: 20,
         distanceNearClose: 250
-      };
+      });
 
-      const pcb = new BrowserClosureNotice(args);
       pcb.detect();
     </script>
   </head>
 
   <body>
-    <h1>DEMO BrowserClosureNotice</h1>
-    <div>Dirige el ratón hacia el boton de cierre del navegador</div>
-    <div>Direct the mouse to the browser close button</div>
-    <div id="data"></div>
+    <h1>🖱️ DEMO BrowserClosureNotice</h1>
+    <div class="info">
+      <p><strong>ES:</strong> Dirige el ratón hacia el botón de cierre del navegador</p>
+      <p><strong>EN:</strong> Direct the mouse to the browser close button</p>
+      <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+        Using modern &lt;dialog&gt; element instead of alert()
+      </p>
+    </div>
   </body>
 </html>

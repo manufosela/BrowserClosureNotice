@@ -12,6 +12,8 @@ const counterEl = document.getElementById('counter');
 const platformEl = document.getElementById('platform');
 
 // Config inputs
+const modeSelect = document.getElementById('modeSelect');
+const customMessageInput = document.getElementById('customMessage');
 const maxTimesInput = document.getElementById('maxTimes');
 const stepsTakenToCloseInput = document.getElementById('stepsTakenToClose');
 const distanceNearCloseInput = document.getElementById('distanceNearClose');
@@ -20,28 +22,75 @@ const distanceNearCloseInput = document.getElementById('distanceNearClose');
 const isMac = navigator.userAgent.toLowerCase().includes('mac os x');
 platformEl.textContent = isMac ? 'Mac OS X (close button on top-left)' : 'Windows/Linux (close button on top-right)';
 
+// Prevent closing dialog when clicking outside
+const customDialog = document.getElementById('customDialog');
+customDialog.addEventListener('click', (e) => {
+    if (e.target === customDialog) {
+        e.preventDefault();
+    }
+});
+
 // Callback function
 function onClosureDetected(e) {
     triggerCount++;
     counterEl.textContent = triggerCount;
 
-    const message = `Browser closure detected! (${triggerCount} times)\n\nMouse position: ${e.clientX}, ${e.clientY}`;
-    alert(message);
+    // Update and show dialog
+    const dialog = document.getElementById('customDialog');
+    const dialogCount = document.getElementById('dialogCount');
+    dialogCount.textContent = triggerCount;
+    dialog.showModal();
+
+    console.log(`Browser closure detected! (${triggerCount} times) - Mouse: ${e.clientX}, ${e.clientY}`);
+}
+
+// Discount callback
+function applyDiscountCallback() {
+    triggerCount++;
+    counterEl.textContent = triggerCount;
+
+    // Show discount message
+    const discountDialog = document.getElementById('customDialog');
+    const dialogCount = document.getElementById('dialogCount');
+    dialogCount.textContent = '10%';
+
+    const discountHTML = `
+        <div class="dialog-content">
+            <h3>🎉 Special Offer!</h3>
+            <p>Don't leave! We're applying a discount for you!</p>
+            <div class="count" id="dialogCount">10%</div>
+            <p style="font-size: 14px; margin-bottom: 24px;">discount applied!</p>
+            <button onclick="this.closest('dialog').close()">Claim Discount!</button>
+        </div>
+    `;
+    discountDialog.innerHTML = discountHTML;
+    discountDialog.showModal();
+
+    console.log(`Discount applied! (triggered ${triggerCount} times)`);
 }
 
 // Start detection
 function startDetection() {
+    const mode = modeSelect.value;
     const config = {
-        callback: onClosureDetected,
         maxTimes: parseInt(maxTimesInput.value),
         stepsTakenToClose: parseInt(stepsTakenToCloseInput.value),
         distanceNearClose: parseInt(distanceNearCloseInput.value)
     };
 
+    // Set callback based on mode
+    if (mode === 'custom') {
+        config.callback = onClosureDetected;
+    } else if (mode === 'message') {
+        config.dialogMessage = customMessageInput.value;
+    } else if (mode === 'discount') {
+        config.callback = applyDiscountCallback;
+    }
+
     bcn = new BrowserClosureNotice(config);
     bcn.detect();
 
-    statusEl.textContent = 'Detecting...';
+    statusEl.textContent = `Detecting (${mode} mode)...`;
     statusEl.style.color = '#4ade80';
     startBtn.disabled = true;
     stopBtn.disabled = false;
